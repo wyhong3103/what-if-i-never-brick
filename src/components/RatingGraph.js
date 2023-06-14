@@ -24,7 +24,9 @@ export const RatingGraph = ({values}) => {
     const data = {
         datasets: [
             {
-            data: values
+                data: values,
+                borderColor: '#555',
+                pointBackgroundColor : '#FFF'
             }
         ]
     };
@@ -80,7 +82,18 @@ export const RatingGraph = ({values}) => {
         }
 
         return rects;
-    }
+    };
+
+    const getTimeUnit = () => {
+        const day = Math.floor((values[values.length-1].x.getTime() - values[0].x.getTime()) / (1000 * 60 * 60 * 24));
+        
+        // if difference of day is within a money, we display by day
+        // if its less than 24 month we display by month
+        // else in year
+        if (day <= 30) return "day";
+        else if (day <= 24 * 30) return "month";
+        else return "year";
+    };
 
     const plugins = [{
         beforeDraw: function(chart) {
@@ -88,7 +101,7 @@ export const RatingGraph = ({values}) => {
             const chartArea = chart.chartArea;
             const rects = getRatingRects(chartArea.bottom - chartArea.top);
 
-            ctx.fillStyle = rects[rects.length-1].color;
+            ctx.fillStyle = '#ffffff'
             ctx.fillRect(chartArea.left, 0,chartArea.right - chartArea.left, 10);
             let prev = 10;
             for(let i = rects.length-1; i >= 0; i--){
@@ -105,16 +118,19 @@ export const RatingGraph = ({values}) => {
             x: {
                 type: "time",
                 time : {
-                    unit : "month"
+                    unit : getTimeUnit()
                 }
             },
             y:{
                 min : getMinMax()[0],
                 max : getMinMax()[1],
+                grid : {
+                    display : false
+                },
                 ticks : {
                     // actual stepSize to be displayed would be affected by font size
                     font : {
-                        size : 10
+                        size : 10.5
                     },
                     stepSize : 100,
                     callback : (value) => {
