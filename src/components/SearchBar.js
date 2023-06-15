@@ -14,11 +14,13 @@ export const SearchBar = () => {
                 <label for='cf-handle'>
                     CF HANDLE
                 </label>
-                <input id='cf-handle' type="text" onChange={onInputChange} value={cfHandle}/>
+                <div className="input-bar-container">
+                    <input id='cf-handle' type="text" onChange={onInputChange} value={cfHandle}/>
+                    <button className='search-btn'>
+                        GO
+                    </button>
+                </div>
             </div>
-            <button className='search-btn'>
-                What If I Never Brick?
-            </button>
         </div>
     )
 
