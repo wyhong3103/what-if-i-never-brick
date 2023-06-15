@@ -1,6 +1,7 @@
 import './styles/App.css';
 import { useEffect, useState } from "react";
 import { RatingGraph } from "./components/RatingGraph";
+import { SearchBar } from './components/SearchBar';
 
 export const App = () => {
     const [loading, setLoaing] = useState(false);
@@ -33,6 +34,7 @@ export const App = () => {
 
     return(
         <>
+            <SearchBar/>
             <div class="result-container">
                 {
                     loading === false ?
