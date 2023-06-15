@@ -169,7 +169,7 @@ export const RatingGraph = ({values}) => {
     }, []);
         
     return(
-        <div className='chart-container' style={{"width" : '60%', 'height':'500px'}}>
+        <div className='chart-container' style={{"width" : '60%', 'height':(screenWidth >= 1200 ? '500px' : '300px')}}>
             <Line ref={chart} options={options} data={data} plugins={plugins}/>
         </div>
     )
