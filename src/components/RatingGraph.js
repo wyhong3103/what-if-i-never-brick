@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import "chartjs-adapter-moment";
 import { Line } from "react-chartjs-2";
 import {
@@ -21,15 +22,8 @@ ChartJS.register(
 
 
 export const RatingGraph = ({values}) => {
-    const data = {
-        datasets: [
-            {
-                data: values,
-                borderColor: '#555',
-                pointBackgroundColor : '#FFF'
-            }
-        ]
-    };
+    const chart = useRef();
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
     // return min & max value to be displayed in the rating graph
     const getMinMax = () => {
@@ -41,6 +35,62 @@ export const RatingGraph = ({values}) => {
         }
         return [Math.floor(mn/100)*100-100, Math.floor(mx/100)* 100 +100];
     }
+
+    const getTimeUnit = () => {
+        const day = Math.floor((values[values.length-1].x.getTime() - values[0].x.getTime()) / (1000 * 60 * 60 * 24));
+        
+        // if difference of day is within a money, we display by day
+        // if its less than 24 month we display by month
+        // else in year
+        if (day <= 30) return "day";
+        else if (day <= 24 * 30) return "month";
+        else return "year";
+    };
+
+    const [options, setOptions] = useState(
+        {
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    type: "time",
+                    time : {
+                        unit : getTimeUnit()
+                    }
+                },
+                y:{
+                    min : getMinMax()[0],
+                    max : getMinMax()[1],
+                    grid : {
+                        display : false
+                    },
+                    ticks : {
+                        display : (screenWidth >= 1200),
+                        // actual stepSize to be displayed would be affected by font size
+                        font : {
+                            size : 10.5
+                        },
+                        stepSize : 100,
+                        callback : (value) => {
+                            const rating = [0, 1200, 1400, 1600, 1900, 2100, 2300, 2400, 2600, 3000];
+                            return (rating.includes(value) ? (value) : '');
+                        }
+                    }
+                }
+            },
+        }
+    );
+    
+    const data = {
+        datasets: [
+            {
+                data: values,
+                borderColor: '#555',
+                pointBackgroundColor : '#FFF'
+            }
+        ]
+    };
+
+
 
     const getRatingRects = (height) => {
         const [mn, mx] = getMinMax();
@@ -84,17 +134,6 @@ export const RatingGraph = ({values}) => {
         return rects;
     };
 
-    const getTimeUnit = () => {
-        const day = Math.floor((values[values.length-1].x.getTime() - values[0].x.getTime()) / (1000 * 60 * 60 * 24));
-        
-        // if difference of day is within a money, we display by day
-        // if its less than 24 month we display by month
-        // else in year
-        if (day <= 30) return "day";
-        else if (day <= 24 * 30) return "month";
-        else return "year";
-    };
-
     const plugins = [{
         beforeDraw: function(chart) {
             const ctx = chart.ctx;
@@ -111,40 +150,27 @@ export const RatingGraph = ({values}) => {
             }
         }
     }];
+            
+    useEffect(() => {
+        const temp = {...options};
+        temp.scales.y.ticks.display = (screenWidth >= 1200 ? true : false);
+        setOptions({...temp});
+    }, [screenWidth])
 
-    const options = {
-        response: true,
-        scales: {
-            x: {
-                type: "time",
-                time : {
-                    unit : getTimeUnit()
-                }
-            },
-            y:{
-                min : getMinMax()[0],
-                max : getMinMax()[1],
-                grid : {
-                    display : false
-                },
-                ticks : {
-                    // actual stepSize to be displayed would be affected by font size
-                    font : {
-                        size : 10.5
-                    },
-                    stepSize : 100,
-                    callback : (value) => {
-                        const rating = [0, 1200, 1400, 1600, 1900, 2100, 2300, 2400, 2600, 3000];
-                        return (rating.includes(value) ? (value) : '');
-                    }
-                }
-            }
-        },
-    };
-
+    useEffect(() => {
+        window.addEventListener("resize", () => {
+            setScreenWidth(window.innerWidth);
+        });
+        return () => {
+            window.removeEventListener("resize", () => {
+                setScreenWidth(window.innerWidth);
+            })
+        }
+    }, []);
+        
     return(
-        <div className='chart-container' style={{width : '1000px'}}>
-            <Line options={options} data={data} plugins={plugins}/>
+        <div className='chart-container' style={{"width" : '60%', 'height':'500px'}}>
+            <Line ref={chart} options={options} data={data} plugins={plugins}/>
         </div>
     )
 }
