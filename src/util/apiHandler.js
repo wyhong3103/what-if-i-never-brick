@@ -20,8 +20,17 @@ export const apiHandler = (() => {
         return contests;
     }
 
+    const userExist = async (handle) => {
+
+        const res = await fetch(API_BASE_URL+`user.info?handles=${handle}`);
+        const ret = await res.json();
+
+        return ret.status === 'OK';
+    }
+
     return{
         getContestData,
-        getContestList
+        getContestList,
+        userExist
     }
 })()
