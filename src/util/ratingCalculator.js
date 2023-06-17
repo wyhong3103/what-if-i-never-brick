@@ -1,4 +1,4 @@
-const ratingCalculator = (targetHandle, rating, contestants) => {
+export const ratingCalculator = (targetHandle, rating, contestants) => {
     const MAX = 5000;
     const seed = new Array(MAX * 2);
     const delta = new Array(contestants.length);
@@ -90,5 +90,3 @@ const ratingCalculator = (targetHandle, rating, contestants) => {
     correctDelta();
     return getTargetDelta();
 };
-
-module.exports = ratingCalculator;
