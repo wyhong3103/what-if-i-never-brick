@@ -4,7 +4,7 @@ export const apiHandler = (() => {
     const getContestData = async (contestID) => {
         const res = await fetch(API_BASE_URL+`contest.ratingChanges?contestId=${contestID}`);
         const ret = await res.json();
-        return ret.result;
+        return ret;
     }
 
     const getContestList = async (handle) => {
