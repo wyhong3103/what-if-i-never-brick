@@ -6,4 +6,8 @@ export const apiHandler = (() => {
         const ret = await res.json();
         return ret.result;
     }
+
+    return{
+        getContestData
+    }
 })()
