@@ -7,7 +7,21 @@ export const apiHandler = (() => {
         return ret.result;
     }
 
+    const getContestList = async (handle) => {
+        const res = await fetch(API_BASE_URL+`user.rating?handle=${handle}`);
+        const ret = await res.json();
+        
+        const contests = [];
+
+        for(const i of ret.result){
+            contests.push(i.contestId);
+        }
+
+        return contests;
+    }
+
     return{
-        getContestData
+        getContestData,
+        getContestList
     }
 })()
