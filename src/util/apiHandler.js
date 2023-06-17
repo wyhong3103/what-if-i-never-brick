@@ -4,7 +4,7 @@ export const apiHandler = (() => {
     const getContestData = async (contestID) => {
         const res = await fetch(API_BASE_URL+`contest.ratingChanges?contestId=${contestID}`);
         const ret = await res.json();
-        return ret;
+        return ret.result;
     }
 
     const getContestList = async (handle) => {
@@ -14,7 +14,7 @@ export const apiHandler = (() => {
         const contests = [];
 
         for(const i of ret.result){
-            contests.push(i.contestId);
+            contests.push([i.contestId, i.contestName, i.ratingUpdateTimeSeconds]);
         }
 
         return contests;
