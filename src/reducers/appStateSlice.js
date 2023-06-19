@@ -27,5 +27,5 @@ export const appStateSlice = createSlice(
     }
 )
 
-export const {setLoading, setFirstTime, setHandle} = appStateSlice.actions; 
+export const {setLoading, setFirstTime, setHandle, setValues} = appStateSlice.actions; 
 export default appStateSlice.reducer;
