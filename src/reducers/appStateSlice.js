@@ -8,7 +8,7 @@ export const appStateSlice = createSlice(
             firstTime : true,
             handle : "",
             values : [],
-            mode : 0
+            mode : 1
         },
         reducers : {
             setLoading : (state, action) => {
