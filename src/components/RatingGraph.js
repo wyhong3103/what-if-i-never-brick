@@ -64,15 +64,14 @@ export const RatingGraph = ({values}) => {
                         display : false
                     },
                     ticks : {
-                        display : (screenWidth >= 1200),
                         // actual stepSize to be displayed would be affected by font size
                         font : {
-                            size : 10.5
+                            size : 10
                         },
                         stepSize : 100,
                         callback : (value) => {
                             const rating = [0, 1200, 1400, 1600, 1900, 2100, 2300, 2400, 2600, 3000];
-                            return (rating.includes(value) ? (value) : '');
+                            return (rating.includes(value) && screenWidth >= 1200 && getMinMax()[1] - getMinMax()[0] <= 3000 ? (value) : '');
                         }
                     }
                 }
