@@ -11,6 +11,19 @@ export const SearchBar = () => {
         dispatch(setHandle(e.target.value));
     };
 
+    const onGo = () => {
+        dispatch(setLoading(true));
+        dispatch(setFirstTime(false));
+    };
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+            onGo();
+        }
+      };
+
+
     return (
         <div className="search-bar">
             <div className='input-container'>
@@ -18,12 +31,9 @@ export const SearchBar = () => {
                     CF HANDLE
                 </label>
                 <div className="input-bar-container">
-                    <input id='cf-handle' type="text" onChange={onInputChange} value={handle}/>
+                    <input id='cf-handle' type="text" onChange={onInputChange} value={handle} onKeyDown={handleKeyDown}/>
                     <button className='search-btn' 
-                        onClick={() => {
-                            dispatch(setLoading(true));
-                            dispatch(setFirstTime(false));
-                        }}
+                        onClick={onGo}
                     >
                         GO
                     </button>
