@@ -1,5 +1,11 @@
 # What If I never brick?
 
+
+<div align="center">
+	<img src="https://github.com/wyhong3103/what-if-i-never-brick/blob/main/src/assets/neverbrick.png" width="300">
+</div>
+
+
 A web application that filters out all the unsuccessful contests you have participated in Codeforces contests and predicts your rating today based on only the optimal contests.
 
 There are two calculation modes: fast and slow.
