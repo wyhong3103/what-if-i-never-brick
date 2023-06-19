@@ -1,6 +1,4 @@
 import '../styles/SearchBar.css';
-import { useState } from "react";
-import store from '../store';
 import { setLoading, setFirstTime, setHandle } from '../reducers/appStateSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -15,7 +13,7 @@ export const SearchBar = () => {
     return (
         <div className="search-bar">
             <div className='input-container'>
-                <label for='cf-handle'>
+                <label htmlFor='cf-handle'>
                     CF HANDLE
                 </label>
                 <div className="input-bar-container">

@@ -71,7 +71,7 @@ export const App = () => {
     return(
         <div className='main'>
             <SearchBar/>
-            <div class="result-container">
+            <div className="result-container">
                 {
                     firstTime === false && loading === false ?
                     (
