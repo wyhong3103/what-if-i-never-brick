@@ -24,7 +24,7 @@ export const appStateSlice = createSlice(
                 state.values = action.payload;
             },
             setMode : (state, action)  => {
-                state.values = action.payload;
+                state.mode = action.payload;
             }
         }
     }
