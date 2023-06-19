@@ -15,13 +15,13 @@ export const getOptimal = async (handle) => {
                     currentRating = Math.max(0, i.newRating);
                 }
             }
-            if (currentRating > 0) res.push([currentRating, contestList[i][1], (new Date(0)).setUTCSeconds(contestList[i][2])]);
+            if (currentRating > 0) res.push([currentRating, contestList[i][1], new Date(contestList[i][2] * 1000)]);
         }
         else{
             const delta = ratingCalculator(handle, currentRating, contestData);
             if (delta > 0){
                 currentRating += delta;
-                res.push([currentRating, contestList[i][1], (new Date(0)).setUTCSeconds(contestList[i][2])]);
+                res.push([currentRating, contestList[i][1], new Date(contestList[i][2] * 1000)]);
             }
         }
     }
