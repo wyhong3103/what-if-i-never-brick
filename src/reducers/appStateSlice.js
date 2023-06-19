@@ -20,7 +20,6 @@ export const appStateSlice = createSlice(
                 state.handle = action.payload;
             },
             setValues : (state, action) => {
-                console.log(state);
                 state.values = action.payload;
             }
         }
