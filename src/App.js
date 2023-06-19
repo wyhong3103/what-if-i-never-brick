@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setLoading, setValues } from './reducers/appStateSlice';
 import { useEffect, useState } from 'react';
 import { apiHandler } from './util/apiHandler';
-import { getOptimal } from './util/getOptimal';
+import { getOptimalSlow } from './util/getOptimalSlow';
+import { getOptimalFast } from './util/getOptimalFast';
 
 export const App = () => {
     const [msg, setMsg] = useState('Enter your handle to start the journey');
@@ -14,6 +15,7 @@ export const App = () => {
     const loading = useSelector(state => state.appState.loading);
     const handle = useSelector(state => state.appState.handle);
     const values = useSelector(state => state.appState.values);
+    const mode = useSelector(state => state.appState.mode);
     const dispatch = useDispatch();
 
     const convertSecondsToDate = (values) => {
@@ -51,8 +53,7 @@ export const App = () => {
                         return;
                     }
 
-                    const optimalData = await getOptimal(handle);
-
+                    const optimalData = await (mode === 0 ? getOptimalSlow(handle) : getOptimalFast(handle));
 
                     const tempValues = [];
 
