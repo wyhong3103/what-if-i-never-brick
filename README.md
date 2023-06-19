@@ -46,3 +46,7 @@ Once you have installed them:
 4. Start a development server with:
 
 	`$ npm start`
+
+# License & copyright
+
+Licensed under [MIT License](https://github.com/wyhong3103/what-if-i-never-brick/blob/main/LICENSE)
