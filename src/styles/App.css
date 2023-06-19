@@ -27,3 +27,8 @@ html{
     align-items: center;
     padding : 2rem;
 }
+
+.message-box{
+    font-family: var(--poppins);
+    font-size: 2.5rem;
+}
