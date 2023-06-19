@@ -9,6 +9,8 @@
 
 A web application that filters out all the unsuccessful contests you have participated in Codeforces contests and predicts your rating today based on only the optimal contests.
 
+Feel free to upvote my [blog post](https://codeforces.com/blog/entry/117421) on Codeforces!
+
 There are two calculation modes: fast and slow.
 
 ### Fast but less accurate
@@ -24,6 +26,7 @@ The fast mode is incredibly fast because it fetches only the necessary data, whi
 ### Slow but more accurate
 
 This mode follows a [blog post](https://codeforces.com/blog/entry/20762) that was written by [MikeMirzayanov](https://codeforces.com/profile/MikeMirzayanov), the founder of Codeforces. The slow mode takes more time as it needs to fetch all the contest data you have participated in, and each API call takes 2 seconds.
+
 
 ## Running it locally
 
