@@ -18,12 +18,15 @@ html{
     display: flex;
     flex-direction: column;
     height : 100vh;
+    overflow-x: hidden;
+    width: 100vw !important;
 }
 
 .title{
     font-family: var(--poppins);
     color : var(--gray1);
     font-size: 2.5rem;
+    text-align: center;
 }
 
 .result-container{
@@ -39,4 +42,5 @@ html{
     font-family: var(--poppins);
     font-size: 2.5rem;
     color : var(--gray1);
+    text-align: center;
 }
