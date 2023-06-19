@@ -5,6 +5,7 @@
 	<img src="https://github.com/wyhong3103/what-if-i-never-brick/blob/main/src/assets/neverbrick.png" width="300">
 </div>
 
+[Click me to visit the site](https://what-if-i-never-brick.netlify.app/)
 
 A web application that filters out all the unsuccessful contests you have participated in Codeforces contests and predicts your rating today based on only the optimal contests.
 
@@ -18,7 +19,7 @@ This mode follows a simple formula to calculate your rating, which may be less a
 Delta = (Performance - Current Rating) / 4
 ```
 
-The fast mode is incredibly fast because it fetches all the contest data in a single API call.
+The fast mode is incredibly fast because it fetches only the necessary data, which includes your rating changes in every contest, in a single API call.
 
 ### Slow but more accurate
 
