@@ -1,9 +1,10 @@
 import '../styles/SearchBar.css';
-import { setLoading, setFirstTime, setHandle } from '../reducers/appStateSlice';
+import { setLoading, setFirstTime, setHandle, setMode } from '../reducers/appStateSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 export const SearchBar = () => {
     const handle = useSelector(state => state.appState.handle);
+    const mode = useSelector(state => state.appState.mode);
     const dispatch = useDispatch();
 
     const onInputChange = (e) => {
@@ -27,6 +28,14 @@ export const SearchBar = () => {
                         GO
                     </button>
                 </div>
+            </div>
+            <div className='acc-toggle-container'>
+                <p>
+                    CURRENT : {mode === 0 ? "SLOW (MORE ACCURATE)" : "FAST (LESS ACCURATE)"}
+                </p>
+                <button className='acc-toggle-btn' onClick={() => {dispatch(setMode(1-mode))}}>
+                    {mode === 1 ? "SLOW (MORE ACCURATE)" : "FAST (LESS ACCURATE)"}
+                </button>
             </div>
         </div>
     )
