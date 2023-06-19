@@ -14,7 +14,7 @@ export const apiHandler = (() => {
         const contests = [];
 
         for(const i of ret.result){
-            contests.push([i.contestId, i.contestName, i.ratingUpdateTimeSeconds]);
+            contests.push([i.contestId, i.contestName, i.ratingUpdateTimeSeconds, i.oldRating, i.newRating]);
         }
 
         return contests;
