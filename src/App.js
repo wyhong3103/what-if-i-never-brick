@@ -81,7 +81,12 @@ export const App = () => {
                            {msg}
                         </p>
                         :
-                        <RatingGraph values={convertSecondsToDate(values)}/>
+                        <>
+                            <h1 className='title'>
+                                WHAT IF {handle} NEVER BRICK?
+                            </h1>
+                            <RatingGraph values={convertSecondsToDate(values)}/>
+                        </>
                     )
                     :
                     (

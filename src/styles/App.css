@@ -20,9 +20,16 @@ html{
     height : 100vh;
 }
 
+.title{
+    font-family: var(--poppins);
+    color : var(--gray1);
+    font-size: 2.5rem;
+}
+
 .result-container{
     flex-grow: 1;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding : 2rem;
@@ -31,4 +38,5 @@ html{
 .message-box{
     font-family: var(--poppins);
     font-size: 2.5rem;
+    color : var(--gray1);
 }
