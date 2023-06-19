@@ -27,10 +27,25 @@ export const apiHandler = (() => {
 
         return ret.status === 'OK';
     }
+    
+    const apiOK = async () => {
+        try{
+            const res = await fetch(API_BASE_URL+`user.info?handles=wyhong3103`);
+            if (res.status === 404){
+                throw new Error('CF API is down');
+            }
+            return true;
+        }
+        catch (err){
+            console.error(err)
+            return false;
+        }
+    }
 
     return{
         getContestData,
         getContestList,
-        userExist
+        userExist,
+        apiOK
     }
 })()
