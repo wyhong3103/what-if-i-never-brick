@@ -16,6 +16,14 @@ export const App = () => {
     const values = useSelector(state => state.appState.values);
     const dispatch = useDispatch();
 
+    const convertSecondsToDate = (values) => {
+        const temp = [];
+        for(let i = 0; i < values.length; i++){
+            temp.push({x : new Date(values[i].x * 1000), y : values[i].y, });
+        }
+        return temp;
+    };
+
     useEffect(
         () => {
             (async () => {
@@ -52,8 +60,6 @@ export const App = () => {
                         tempValues.push({x : i[2], y : i[0]});
                     }
 
-                    console.log(tempValues);
-
                     dispatch(setValues(tempValues));
 
                     dispatch(setLoading(false))
@@ -74,7 +80,7 @@ export const App = () => {
                            {msg}
                         </p>
                         :
-                        <RatingGraph values={values}/>
+                        <RatingGraph values={convertSecondsToDate(values)}/>
                     )
                     :
                     (
