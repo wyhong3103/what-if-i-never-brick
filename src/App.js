@@ -11,6 +11,7 @@ import { getOptimalFast } from './util/getOptimalFast';
 
 export const App = () => {
     const [msg, setMsg] = useState('Enter your handle to start the journey');
+    const [resultHandle, setResultHandle] = useState("");
     const firstTime = useSelector(state => state.appState.firstTime);
     const loading = useSelector(state => state.appState.loading);
     const handle = useSelector(state => state.appState.handle);
@@ -32,6 +33,8 @@ export const App = () => {
                 if (loading){
                     dispatch(setValues({}));
 
+                    const tempHandle = handle;
+
                     const apiOK = await apiHandler.apiOK();
                     if (!apiOK){
                         setMsg("Codeforces API is currently down.");
@@ -39,21 +42,21 @@ export const App = () => {
                         return;
                     }
 
-                    const userExist = await apiHandler.userExist(handle);
+                    const userExist = await apiHandler.userExist(tempHandle);
                     if (!userExist){
                         setMsg("User handle not found.");
                         dispatch(setLoading(false))
                         return;
                     }
 
-                    const contestList = await apiHandler.getContestList(handle);
+                    const contestList = await apiHandler.getContestList(tempHandle);
                     if (contestList.length === 0){
                         setMsg("User has not done any contest.");
                         dispatch(setLoading(false))
                         return;
                     }
 
-                    const optimalData = await (mode === 0 ? getOptimalSlow(handle) : getOptimalFast(handle));
+                    const optimalData = await (mode === 0 ? getOptimalSlow(tempHandle) : getOptimalFast(tempHandle));
 
                     const tempValues = [];
 
@@ -61,8 +64,8 @@ export const App = () => {
                         tempValues.push({x : i[2], y : i[0]});
                     }
 
+                    setResultHandle(tempHandle);
                     dispatch(setValues(tempValues));
-
                     dispatch(setLoading(false))
                 }
             })()
@@ -83,7 +86,7 @@ export const App = () => {
                         :
                         <>
                             <h1 className='title'>
-                                WHAT IF {handle} NEVER BRICK?
+                                WHAT IF {resultHandle} NEVER BRICK?
                             </h1>
                             <RatingGraph values={convertSecondsToDate(values)}/>
                         </>
