@@ -1,25 +1,22 @@
 # What If I never brick?
 
-A web application that filters out all the bad contests you have done in codeforces contests and predict your rating today if you have only taken the optimal contests.
+A web application that filters out all the unsuccessful contests you have participated in Codeforces contests and predicts your rating today based on only the optimal contests.
 
-There are 2 calculation modes, fast and slow.
+There are two calculation modes: fast and slow.
 
 ### Fast but less accurate
 
-This mode follows a simple formula to calculate your rating which is less accurate.
+This mode follows a simple formula to calculate your rating, which may be less accurate.
 
 ```
 Delta = (Performance - Current Rating) / 4
 ```
 
-Fast mode is lightningly fast, because it only fetches all the contests data in one API call.
-
+The fast mode is incredibly fast because it fetches all the contest data in a single API call.
 
 ### Slow but more accurate
 
-This mode follows a [blog](https://codeforces.com/blog/entry/20762) that was posted by [MikeMirzayanov](https://codeforces.com/profile/MikeMirzayanov) The Founder of Codeforces.
-
-Slow mode is really slow, because it has to fetch all the contest data that you have participated, and each API call takes 2 seconds.
+This mode follows a [blog post](https://codeforces.com/blog/entry/20762) that was written by [MikeMirzayanov](https://codeforces.com/profile/MikeMirzayanov), the founder of Codeforces. The slow mode takes more time as it needs to fetch all the contest data you have participated in, and each API call takes 2 seconds.
 
 # Running it locally
 
