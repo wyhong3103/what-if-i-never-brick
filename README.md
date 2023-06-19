@@ -25,7 +25,7 @@ The fast mode is incredibly fast because it fetches only the necessary data, whi
 
 This mode follows a [blog post](https://codeforces.com/blog/entry/20762) that was written by [MikeMirzayanov](https://codeforces.com/profile/MikeMirzayanov), the founder of Codeforces. The slow mode takes more time as it needs to fetch all the contest data you have participated in, and each API call takes 2 seconds.
 
-# Running it locally
+## Running it locally
 
 To launch the web application, it is necessary to have <a href="http://nodejs.org/" target="_blank">Node.js</a> and <a href="https://npmjs.com/" target="_blank">npm</a> installed on your system.
 
@@ -47,6 +47,6 @@ Once you have installed them:
 
 	`$ npm start`
 
-# License & copyright
+## License & copyright
 
 Licensed under [MIT License](https://github.com/wyhong3103/what-if-i-never-brick/blob/main/LICENSE)
