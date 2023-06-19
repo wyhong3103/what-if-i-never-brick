@@ -14,7 +14,14 @@ html{
     font-size: 10px;
 }
 
+.main{
+    display: flex;
+    flex-direction: column;
+    height : 100vh;
+}
+
 .result-container{
+    flex-grow: 1;
     display: flex;
     justify-content: center;
     align-items: center;
