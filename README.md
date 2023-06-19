@@ -10,7 +10,6 @@ This mode follows a simple formula to calculate your rating which is less accura
 
 ```
 Delta = (Performance - Current Rating) / 4
-
 ```
 
 Fast mode is lightningly fast, because it only fetches all the contests data in one API call.
