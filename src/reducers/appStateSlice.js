@@ -7,7 +7,8 @@ export const appStateSlice = createSlice(
             loading : false,
             firstTime : true,
             handle : "",
-            values : []
+            values : [],
+            mode : 0
         },
         reducers : {
             setLoading : (state, action) => {
@@ -21,10 +22,13 @@ export const appStateSlice = createSlice(
             },
             setValues : (state, action) => {
                 state.values = action.payload;
+            },
+            setMode : (state, action)  => {
+                state.values = action.payload;
             }
         }
     }
 )
 
-export const {setLoading, setFirstTime, setHandle, setValues} = appStateSlice.actions; 
+export const {setLoading, setFirstTime, setHandle, setValues, setMode} = appStateSlice.actions; 
 export default appStateSlice.reducer;
