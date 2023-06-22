@@ -73,6 +73,14 @@ export const App = () => {
                     dispatch(setProgress([0, 0]));
                 }
             })()
+            .catch( 
+                err => {
+                    console.error(err);
+                    setMsg("Something went wrong, please wait for 2 seconds before trying again!");
+                    dispatch(setLoading(false))
+                    dispatch(setProgress([0, 0]));
+                }
+            );
         }
     ,[loading])
 
