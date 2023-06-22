@@ -44,3 +44,10 @@ html{
     color : var(--gray1);
     text-align: center;
 }
+
+.progress-label{
+    font-family: var(--poppins);
+    text-align: center;
+    color : var(--gray1);
+    font-size: 2rem;
+}

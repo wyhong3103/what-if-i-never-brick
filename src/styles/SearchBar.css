@@ -69,6 +69,11 @@
     background-color: var(--gray2);
 }
 
+.search-btn:disabled{
+    cursor : auto;
+    background-color: var(--gray2);
+}
+
 .acc-toggle-container{
     display: flex;
     flex-direction: column;
@@ -96,5 +101,10 @@
 
 .acc-toggle-btn:hover{
     cursor: pointer;
+    background-color: var(--gray2);
+}
+
+.acc-toggle-btn:disabled{
+    cursor : auto;
     background-color: var(--gray2);
 }
