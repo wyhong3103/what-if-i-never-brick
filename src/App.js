@@ -1,9 +1,11 @@
 import './styles/App.css';
+import {Box} from '@mui/material';
+import { LinearProgress } from '@mui/material';
 import { HashLoader } from 'react-spinners';
 import { RatingGraph } from "./components/RatingGraph";
 import { SearchBar } from './components/SearchBar';
 import { useDispatch, useSelector } from 'react-redux';
-import { setLoading, setValues } from './reducers/appStateSlice';
+import { setLoading, setProgress, setValues } from './reducers/appStateSlice';
 import { useEffect, useState } from 'react';
 import { apiHandler } from './util/apiHandler';
 import { getOptimalSlow } from './util/getOptimalSlow';
@@ -17,6 +19,7 @@ export const App = () => {
     const handle = useSelector(state => state.appState.handle);
     const values = useSelector(state => state.appState.values);
     const mode = useSelector(state => state.appState.mode);
+    const progress = useSelector(state => state.appState.progress);
     const dispatch = useDispatch();
 
     const convertSecondsToDate = (values) => {
@@ -56,7 +59,7 @@ export const App = () => {
                         return;
                     }
 
-                    const optimalData = await (mode === 0 ? getOptimalSlow(tempHandle) : getOptimalFast(tempHandle));
+                    const optimalData = await (mode === 0 ? getOptimalSlow(tempHandle, dispatch) : getOptimalFast(tempHandle));
 
                     const tempValues = [];
 
@@ -66,7 +69,8 @@ export const App = () => {
 
                     setResultHandle(tempHandle);
                     dispatch(setValues(tempValues));
-                    dispatch(setLoading(false))
+                    dispatch(setLoading(false));
+                    dispatch(setProgress([0, 0]));
                 }
             })()
         }
@@ -94,7 +98,36 @@ export const App = () => {
                     :
                     (
                         loading === true ?
-                        <HashLoader/>
+                        (
+                            mode === 0 ?
+                                progress[1] !== 0 ? 
+                                    <>
+                                        <div className='progress-label'>
+                                            {Math.floor(progress[0] / progress[1] * 100)} %
+                                        </div>
+                                        <Box sx={{ width: '40%' }}>
+                                            <LinearProgress 
+                                                variant="determinate" 
+                                                value={Math.floor(progress[0]/progress[1] * 100)} 
+                                                sx={
+                                                    {
+                                                        height : 10, 
+                                                        borderRadius : '5px',
+                                                        backgroundColor: '#a3a3a3',
+                                                        '& .MuiLinearProgress-bar': {
+                                                          backgroundColor: 'black'
+                                                        }
+                                                    }
+                                                }
+                                                
+                                            />
+                                        </Box>
+                                    </>
+                                :
+                                null
+                            :
+                            <HashLoader/>
+                        )
                         :
                         <p className='message-box'>
                            {msg}

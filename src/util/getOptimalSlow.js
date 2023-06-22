@@ -1,13 +1,17 @@
+import { setProgress } from "../reducers/appStateSlice";
 import { apiHandler } from "./apiHandler";
 import { ratingCalculator } from "./ratingCalculator";
 
-export const getOptimalSlow = async (handle) => {
+export const getOptimalSlow = async (handle, dispatch) => {
     let currentRating = 0;
     // [id, name, date]
     const contestList = await apiHandler.getContestList(handle);
     const res = [];
 
     for(let i = 0; i < contestList.length; i++){
+        // Set new progress
+        dispatch(setProgress([i, contestList.length]));
+
         if (contestList[i][4] <= contestList[i][3]) continue;
         const contestData = await apiHandler.getContestData(contestList[i][0]);
         if (!i){

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export const SearchBar = () => {
     const handle = useSelector(state => state.appState.handle);
+    const loading = useSelector(state => state.appState.loading);
     const mode = useSelector(state => state.appState.mode);
     const dispatch = useDispatch();
 
@@ -18,8 +19,8 @@ export const SearchBar = () => {
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
-          event.preventDefault();
-            onGo();
+            event.preventDefault();
+            if (!loading) onGo();
         }
       };
 
@@ -34,6 +35,7 @@ export const SearchBar = () => {
                     <input id='cf-handle' type="text" onChange={onInputChange} value={handle} onKeyDown={handleKeyDown}/>
                     <button className='search-btn' 
                         onClick={onGo}
+                        disabled={loading}
                     >
                         GO
                     </button>
@@ -43,7 +45,11 @@ export const SearchBar = () => {
                 <p>
                     CURRENT : {mode === 0 ? "SLOW (MORE ACCURATE)" : "FAST (LESS ACCURATE)"}
                 </p>
-                <button className='acc-toggle-btn' onClick={() => {dispatch(setMode(1-mode))}}>
+                <button 
+                    className='acc-toggle-btn' 
+                    onClick={() => {dispatch(setMode(1-mode))}} 
+                    disabled={loading}
+                >
                     {mode === 1 ? "SLOW (MORE ACCURATE)" : "FAST (LESS ACCURATE)"}
                 </button>
             </div>
