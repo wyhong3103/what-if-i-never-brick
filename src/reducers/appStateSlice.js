@@ -8,7 +8,8 @@ export const appStateSlice = createSlice(
             firstTime : true,
             handle : "",
             values : [],
-            mode : 1
+            mode : 1,
+            progress : [0,0]
         },
         reducers : {
             setLoading : (state, action) => {
@@ -25,10 +26,13 @@ export const appStateSlice = createSlice(
             },
             setMode : (state, action)  => {
                 state.mode = action.payload;
+            },
+            setProgress : (state, action)  => {
+                state.progress = action.payload;
             }
         }
     }
 )
 
-export const {setLoading, setFirstTime, setHandle, setValues, setMode} = appStateSlice.actions; 
+export const {setLoading, setFirstTime, setHandle, setValues, setMode, setProgress} = appStateSlice.actions; 
 export default appStateSlice.reducer;
