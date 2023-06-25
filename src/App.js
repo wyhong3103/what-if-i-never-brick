@@ -25,7 +25,14 @@ export const App = () => {
     const convertSecondsToDate = (values) => {
         const temp = [];
         for(let i = 0; i < values.length; i++){
-            temp.push({x : new Date(values[i].x * 1000), y : values[i].y, });
+            temp.push({
+                point : {
+                    x : new Date(values[i].point.x * 1000), 
+                    y : values[i].point.y
+                },
+                contestName : values[i].contestName,
+                delta : values[i].delta
+            });
         }
         return temp;
     };
@@ -63,8 +70,15 @@ export const App = () => {
 
                     const tempValues = [];
 
-                    for(const i of optimalData) {
-                        tempValues.push({x : i[2], y : i[0]});
+                    for(let i = 0; i < optimalData.length; i++) {
+                        tempValues.push({ 
+                            point : {
+                                x : optimalData[i][2], 
+                                y : optimalData[i][0]
+                            }, 
+                            contestName : optimalData[i][1], 
+                            delta : optimalData[i][0] - (i === 0 ? 0 : optimalData[i-1][0])
+                        });
                     }
 
                     setResultHandle(tempHandle);

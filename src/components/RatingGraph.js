@@ -24,20 +24,24 @@ ChartJS.register(
 export const RatingGraph = ({values}) => {
     const chart = useRef();
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+    
+    //extract all the points from values
+    const points = values.map(e => e.point);
 
     // return min & max value to be displayed in the rating graph
     const getMinMax = () => {
         let mn = 1000000;
         let mx = -1000000;
-        for (const i of values){
+        for (const i of points){
             mn = Math.min(mn, i.y);
             mx = Math.max(mx, i.y);
         }
-        return [Math.floor(mn/100)*100-100, Math.floor(mx/100)* 100 +100];
+        return [Math.floor(mn/100)*100-100, Math.ceil(mx/100)* 100 +100];
     }
 
+    //get time unit for x axis
     const getTimeUnit = () => {
-        const day = Math.floor((values[values.length-1].x.getTime() - values[0].x.getTime()) / (1000 * 60 * 60 * 24));
+        const day = Math.floor((points[points.length-1].x.getTime() - points[0].x.getTime()) / (1000 * 60 * 60 * 24));
         
         // if difference of day is within a money, we display by day
         // if its less than 24 month we display by month
@@ -45,6 +49,28 @@ export const RatingGraph = ({values}) => {
         if (day <= 30) return "day";
         else if (day <= 24 * 30) return "month";
         else return "year";
+    };
+
+    //get color based on rating
+    const getColor = (rating) => {
+        const threshold = [
+            [-1, '#FFFFFF'],
+            [1199, '#cccccc'],
+            [1399, '#77ff77'],
+            [1599, '#77ddbb'],
+            [1899, '#aaaaff'],
+            [2099, '#ff88ff'],
+            [2299, '#ffcc88'],
+            [2399, '#ffbb55'],
+            [2599, '#ff7777'],
+            [2999, '#ff3333'],
+            [Infinity, '#aa0000']
+        ];
+        for(const i of threshold){
+            if (rating <= i[0]){
+                return i[1];
+            }
+        }
     };
 
     const [options, setOptions] = useState(
@@ -76,13 +102,31 @@ export const RatingGraph = ({values}) => {
                     }
                 }
             },
+            // callbacks to handle the tooltips
+            plugins:{
+                tooltip : {
+                    callbacks : {
+                        title : (ctx) => {
+                            return `${values[ctx[0].dataIndex].contestName}`;
+                        },
+                        label : (ctx) => {
+                            return `${ctx.parsed.y} (${(values[ctx.dataIndex].delta > 0 ? '+' : '')}${values[ctx.dataIndex].delta})`;
+                        },   
+                        labelColor: (ctx) => {
+                            return {
+                                backgroundColor: getColor(ctx.parsed.y)
+                            };
+                        },
+                    }
+                }
+            }
         }
     );
     
     const data = {
         datasets: [
             {
-                data: values,
+                data: points,
                 borderColor: '#555',
                 pointBackgroundColor : '#FFF'
             }
